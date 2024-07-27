@@ -1,0 +1,17 @@
+# OpenCampus 2024
+
+## セットアップ
+
+### 必要なもの
+- Unitree A1
+- 充電器
+- LAN ケーブル
+- コントローラー (A1)
+- コントローラー (xbox)
+- 障害物
+
+### 1. LANケーブルでA1とPCを接続
+
+<img src="C:\Users\hayas\Desktop\OpenCumpus2024\img\LAN_port.svg" alt="LAN Port" style="width:50%;">
+
+### 2. 
