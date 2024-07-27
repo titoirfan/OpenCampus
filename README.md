@@ -13,7 +13,7 @@
 - 障害物
 
 
-### 1. 仮想環境作成
+### 仮想環境作成
 ※ python 環境があるのが前提
 ```
 python -m venv env
@@ -23,7 +23,7 @@ python -m venv env
 env\Scripts\activate
 ```
 
-### 2. ライブラリインストール
+### ライブラリインストール
 
 pytorchのバージョンはcudaのバージョンにあわせる．
 ```
@@ -32,7 +32,7 @@ pip install -r src/requirements.txt
 pip install torch==2.3.1+cu121 -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
-### 3. LANケーブルでA1とPCを接続
+### LANケーブルでA1とPCを接続
 
 <img src="./img/LAN_port.svg" width="50%">
 
@@ -84,14 +84,26 @@ void Custom::TCPClient() {
 ```
 
 ### unitree_legged_sdk の build
+ターミナルを２つ開く
 
-```
-scp -r unitree_legged_sdk pi@169.254.187.189:/home/OpenCampus2024/ryosei
-```
+１つ目のターミナル
 ssh のパスワードは　123
 ```
 ssh pi@169.254.187.189
-cd /home/OpenCampus2024/ryosei/unitree_legged_sdk
+mkdir /home/OpenCampus2024
+```
+
+２つ目のターミナル
+
+```
+scp -r src/unitree_legged_sdk pi@169.254.187.189:/home/OpenCampus2024
+```
+
+１つ目のターミナル
+
+```
+ssh pi@169.254.187.189
+cd /home/OpenCampus2024/unitree_legged_sdk
 mkdir build
 cd build
 cmake ..
