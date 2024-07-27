@@ -130,6 +130,7 @@ python src/RL_server.py
 ```
 
 ２つ目のターミナル
+
 sshのパスワードは　123
 
 ```
