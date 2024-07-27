@@ -34,7 +34,7 @@ pip install torch==2.3.1+cu121 -f https://download.pytorch.org/whl/torch_stable.
 
 ### 3. LANケーブルでA1とPCを接続
 
-![LAN Port](./img/LAN_port.svg)
+<img src="./img/LAN_port.svg" width="50%">
 
 イーサネットのIPアドレスを確認
 ```
