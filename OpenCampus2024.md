@@ -1,5 +1,9 @@
 # OpenCampus 2024
 
+## Memo
+
+
+
 ## セットアップ
 
 ### 必要なもの
@@ -14,4 +18,17 @@
 
 <img src="C:\Users\hayas\Desktop\OpenCumpus2024\img\LAN_port.svg" alt="LAN Port" style="width:50%;">
 
-### 2. 
+### 2. 仮想環境作成
+※python 環境があるのが前提
+```
+python -m venv env
+```
+#### Activate
+```
+env\Scripts\activate
+```
+
+### 3. ライブラリインストール
+```
+pip install -r src/requirements.txt
+```

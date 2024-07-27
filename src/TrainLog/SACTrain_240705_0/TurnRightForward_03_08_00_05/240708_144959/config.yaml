@@ -1,0 +1,100 @@
+SAC:
+  alpha: 0.2
+  automatic_entropy_tuning: true
+  batch_size: 256
+  gamma: 0.99
+  hidden_size:
+  - 512
+  - 256
+  - 128
+  log_interval: 1000
+  lr: 0.0001
+  num_steps: 10000000
+  policy: Gaussian
+  replay_size: 5000000
+  start_steps: 100000
+  target_update_interval: 1
+  tau: 0.005
+  updates_interval: 1
+  updates_per_step: 1
+comment: TurnRightForward_03_08_00_05
+env:
+  CPG:
+    a: 150
+    d: 0.15
+    gc: 0.1
+    gc_max: 0.12
+    gc_min: 0.03
+    gp: 0.02
+    h: 0.25
+    h_max: 0.3
+    h_min: 0.19
+    muHigh: 2.0
+    muLow: 1.0
+    omegaHigh: 4.5
+    omegaLow: 1.0
+    psiHigh: 1.5
+    psiLow: -1.5
+  additional_trunk_mass: 0.0
+  additional_trunk_mass_max: 5.0
+  additional_trunk_mass_min: 0.0
+  command:
+  - 0.3
+  - 0.0
+  - -0.5
+  command_change_interval: 5
+  command_max:
+  - 0.5
+  - 0.0
+  - -0.3
+  command_min:
+  - 0.0
+  - 0.0
+  - -0.8
+  control:
+    Kd: 2.0
+    Kp: 100.0
+    control_dt_per_mujoco_dt: 1
+  curriculum:
+    curriculum_end: 8000000
+    curriculum_learn: false
+    curriculum_start: 2000000
+    dekoboko: 0.1
+    dekoboko_max: 0.12
+    dekoboko_min: 0.0001
+    terrain: dekoboko
+  dekoboko: 0.1
+  dekoboko_max: 0.12
+  dekoboko_min: 0.0001
+  delay: 30
+  delay_max: 35
+  delay_min: 15
+  dt: 0.001
+  external_push_interval: 15
+  external_push_vel: 0.5
+  friction: 0.8
+  friction_max: 1.0
+  friction_min: 0.3
+  learn:
+    NN_dt_per_mujoco_dt: 10
+    episodeLength_s: 20
+    rewardScale:
+      ang_vel_x: -0.05
+      ang_vel_y: -0.05
+      ang_vel_z: 0.5
+      lin_vel_x: 0.75
+      lin_vel_y: 0.75
+      lin_vel_z: -2.0
+      work: -0.001
+  limb_mass_scaling_factor: 1.0
+  limb_mass_scaling_factor_max: 1.2
+  limb_mass_scaling_factor_min: 0.8
+  terrain: flat
+  video:
+    framerate: 25
+    height: 1080
+    track_cam: true
+    track_id: 0
+    width: 1920
+gpu: 6
+seed: 765432

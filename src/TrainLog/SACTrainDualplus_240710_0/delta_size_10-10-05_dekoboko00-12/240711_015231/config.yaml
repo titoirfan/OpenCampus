@@ -1,0 +1,185 @@
+SAC:
+  alpha: 0.2
+  automatic_entropy_tuning: true
+  batch_size: 256
+  gamma: 0.99
+  hidden_size:
+  - 512
+  - 256
+  - 128
+  log_interval: 1000
+  lr: 0.0001
+  num_steps: 10000000
+  policy: Gaussian
+  replay_size: 5000000
+  start_steps: 100000
+  target_update_interval: 1
+  tau: 0.005
+  updates_interval: 1
+  updates_per_step: 1
+comment: delta_size_10-10-05_dekoboko00-12
+env:
+  CPG:
+    a: 150
+    d: 0.15
+    gc: 0.1
+    gc_max: 0.12
+    gc_min: 0.03
+    gp: 0.02
+    h: 0.25
+    h_max: 0.3
+    h_min: 0.19
+    log_Backward: /mnt/ssd1/ryosei/master/A1_WS_RL4Real2/Log/SACTrain_240705_0/Backward_03_08/240708_145445
+    log_Forward: /mnt/ssd1/ryosei/master/A1_WS_RL4Real2/Log/SACTrain_240705_0/forward_00_05/240708_144207
+    log_TL: /mnt/ssd1/ryosei/master/A1_WS_RL4Real2/Log/SACTrain_240705_0/TurnLeft_03_08/240705_203739
+    log_TLF: /mnt/ssd1/ryosei/master/A1_WS_RL4Real2/Log/SACTrain_240705_0/TurnLeftForward_03_08_00_05/240705_204039
+    log_Left: /mnt/ssd1/ryosei/master/A1_WS_RL4Real2/Log/SACTrain_240705_0/Left_03_08/240705_204533
+    log_TR: /mnt/ssd1/ryosei/master/A1_WS_RL4Real2/Log/SACTrain_240705_0/TurnRight_03_08/240705_203910
+    log_TRF: /mnt/ssd1/ryosei/master/A1_WS_RL4Real2/Log/SACTrain_240705_0/TurnRightForward_03_08_00_05/240708_144959
+    log_Right: /mnt/ssd1/ryosei/master/A1_WS_RL4Real2/Log/SACTrain_240705_0/Right_03_08/240705_204631
+    log_Step: /mnt/ssd1/ryosei/master/A1_WS_RL4Real2/Log/SACTrain_240705_0/Step_omega_10_45/240705_205004
+    muHigh: 2.0
+    muLow: 1.0
+    networks_Backward: episode_5600.pt
+    networks_Forward: episode_6200.pt
+    networks_TL: episode_6200.pt
+    networks_TLF: episode_5600.pt
+    networks_Left: episode_5600.pt
+    networks_TR: episode_5600.pt
+    networks_TRF: episode_5600.pt
+    networks_Right: episode_5600.pt
+    networks_Step: episode_5700.pt
+    omegaHigh: 4.5
+    omegaLow: 1.0
+    psiHigh: 1.5
+    psiLow: -1.5
+  Delta:
+    dx_max: 0.1
+    dx_min: -0.1
+    dy_max: 0.1
+    dy_min: -0.1
+    dz_max: 0.05
+    dz_min: -0.05
+  delay_max: 1 # steps
+  delay_min: 1 # steps
+  delay: 1 # steps
+  additional_trunk_mass: 0.0
+  additional_trunk_mass_max: 5.0
+  additional_trunk_mass_min: 0.0
+  command:
+  - 0.0
+  - 0.5
+  - 0.0
+  command_1_max:
+  - 0.5
+  - 0.0
+  - 0.0
+  command_1_min:
+  - 0.0
+  - 0.0
+  - 0.0
+  command_2_max:
+  - -0.3
+  - 0.0
+  - 0.0
+  command_2_min:
+  - -0.8
+  - 0.0
+  - 0.0
+  command_3_max:
+  - 0.0
+  - 0.8
+  - 0.0
+  command_3_min:
+  - 0.0
+  - 0.3
+  - 0.0
+  command_4_max:
+  - 0.0
+  - -0.3
+  - 0.0
+  command_4_min:
+  - 0.0
+  - -0.8
+  - 0.0
+  command_5_max:
+  - 0.0
+  - 0.0
+  - 0.8
+  command_5_min:
+  - 0.0
+  - 0.0
+  - 0.3
+  command_6_max:
+  - 0.0
+  - 0.0
+  - -0.3
+  command_6_min:
+  - 0.0
+  - 0.0
+  - -0.8
+  command_7_max:
+  - 0.5
+  - 0.0
+  - 0.8
+  command_7_min:
+  - 0.0
+  - 0.0
+  - 0.3
+  command_8_max:
+  - 0.5
+  - 0.0
+  - -3.0
+  command_8_min:
+  - 0.0
+  - 0.0
+  - -0.8
+  command_9_max:
+  - 0.0
+  - 0.0
+  - 0.0
+  command_9_min:
+  - 0.0
+  - 0.0
+  - 0.0
+  command_change: true
+  command_change_interval: 5
+  command_type: 3
+  command_types: 9
+  control:
+    Kd: 2.0
+    Kp: 100.0
+    control_dt_per_mujoco_dt: 1
+  dekoboko: 0.1
+  dekoboko_max: 0.12
+  dekoboko_min: 1.0e-05
+  dt: 0.001
+  external_push_interval: 15
+  external_push_vel: 0.5
+  friction: 0.8
+  friction_max: 1.0
+  friction_min: 0.3
+  learn:
+    NN_dt_per_mujoco_dt: 10
+    episodeLength_s: 20
+    rewardScale:
+      ang_vel_x: -0.05
+      ang_vel_y: -0.05
+      ang_vel_z: 0.5
+      delta_size: -0.001
+      lin_vel_x: 0.75
+      lin_vel_y: 0.75
+      lin_vel_z: -2.0
+      work: -0.001
+  limb_mass_scaling_factor: 1.0
+  limb_mass_scaling_factor_max: 1.2
+  limb_mass_scaling_factor_min: 0.8
+  terrain: dekoboko
+  video:
+    framerate: 25
+    height: 1080
+    track_cam: true
+    track_id: 0
+    width: 1920
+gpu: 5
+seed: 12345
