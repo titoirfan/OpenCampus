@@ -102,7 +102,6 @@ scp -r src/unitree_legged_sdk pi@169.254.187.189:/home/OpenCampus2024
 １つ目のターミナル
 
 ```
-ssh pi@169.254.187.189
 cd /home/OpenCampus2024/unitree_legged_sdk
 mkdir build
 cd build
