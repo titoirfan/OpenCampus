@@ -15,12 +15,10 @@ script_dir = os.path.dirname(__file__)
 parent_dir = os.path.dirname(script_dir)  
 sys.path.append(parent_dir)
 
-print(f"Script directory: {script_dir}")
-print(f"Parent directory: {parent_dir}")
 
 from SoftActorCritic.SAC import SAC
 
-train_log_Forward = rf"{parent_dir}/TrainLog/SACTrain_240705_0/forward_00_05/240708_144207"
+train_log_Forward = rf"{script_dir}/TrainLog/SACTrain_240705_0/forward_00_05/240708_144207"
 networks_Forward = "episode_6200.pt"
 
 train_log_Backward = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrain_240705_0\Backward_03_08\240708_145445"
@@ -62,9 +60,7 @@ networks_delta2 = "episode_5100.pt"
 timezone = pytz.timezone('Asia/Tokyo')
 start_datetime = datetime.datetime.now(timezone)    
 start_formatted = start_datetime.strftime("%y%m%d_%H%M%S")
-log_dir = f"{script_dir}/Log/{start_formatted}"
-if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
+
 
 
 def clear_terminal():
@@ -339,33 +335,6 @@ def start_server():
     
     #########################################################################################
 
-    
-
-    
-    
-    with open(f"{log_dir}/action_obs.csv", 'w',newline='') as file:
-            writer = csv.writer(file)
-            writer.writerows([["step",
-                            "mu_FR","mu_FL","mu_RR","mu_RL",
-                            "omega_FR","omega_FL","omega_RR","omega_RL",
-                            "psi_FR","psi_FL","psi_RR","psi_RL",
-                            "FR_x","FR_y","FR_z",
-                            "FL_x","FL_y","FL_z",
-                            "RR_x","RR_y","RR_z",
-                            "RL_x","RL_y","RL_z",
-                            "q_0","q_1","q_2","q_3","q_4","q_5","q_6","q_7","q_8","q_9","q_10","q_11",
-                            "dq_0","dq_1","dq_2","dq_3","dq_4","dq_5","dq_6","dq_7","dq_8","dq_9","dq_10","dq_11",
-                            "foot_force_FR","foot_force_FL","foot_force_RR","foot_force_RL",
-                            "euler_roll","euler_pitch",
-                            "angle_vel_roll","angle_vel_pitch","angle_vel_yaw",
-                            "linear_acc_x","linear_acc_y","linear_acc_z",
-                            "r_FR","r_FL","r_RR","r_RL",
-                            "theta_FR","theta_FL","theta_RR","theta_RL",
-                            "phi_FR","phi_FL","phi_RR","phi_RL",
-                            "r_dot_FR","r_dot_FL","r_dot_RR","r_dot_RL",
-                            "omega_FR","omega_FL","omega_RR","omega_RL",
-                            "psi_FR","psi_FL","psi_RR","psi_RL",
-                            "command_x","command_y","command_omega_z",]])
     
     mode = 0.0
     step = 0
@@ -659,29 +628,7 @@ def start_server():
         response = struct.pack('d' * 27, *(mu.tolist() + omega.tolist() + psi.tolist() + delta.tolist() + [mode, h, gc] ))
         
         step += 1
-        with open(f"{log_dir}/action_obs.csv", 'a',newline='') as file:
-            writer = csv.writer(file)
-            writer.writerows([[step,
-                               action[0],action[1],action[2],action[3],
-                               action[4],action[5],action[6],action[7],
-                               action[8],action[9],action[10],action[11],
-                               action_deltas[0],action_deltas[1],action_deltas[2],action_deltas[3],
-                               action_deltas[4],action_deltas[5],action_deltas[6],action_deltas[7],
-                               action_deltas[8],action_deltas[9],action_deltas[10],action_deltas[11],
-                               observation[0],observation[1],observation[2],observation[3],observation[4],observation[5],observation[6],observation[7],observation[8],observation[9],observation[10],observation[11],
-                               observation[12],observation[13],observation[14],observation[15],observation[16],observation[17],observation[18],observation[19],observation[20],observation[21],observation[22],observation[23],
-                               observation[24],observation[25],observation[26],observation[27],
-                               observation[28],observation[29],
-                               observation[30],observation[31],observation[32],
-                               observation[33],observation[34],observation[35],
-                               observation[36],observation[37],observation[38],observation[39],
-                               observation[40],observation[41],observation[42],observation[43],
-                               observation[44],observation[45],observation[46],observation[47],
-                               observation[48],observation[49],observation[50],observation[51],
-                               observation[52],observation[53],observation[54],observation[55],
-                               observation[56],observation[57],observation[58],observation[59],
-                               observation[60],observation[61],observation[62],
-                               ]])
+       
         
         client_socket.send(response)
         client_socket.close()
