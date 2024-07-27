@@ -100,7 +100,37 @@ make
 
 ## Start
 
+### unitreeのコントローラーとA1を起動
+どちらも電源ボタンを２回押す（２回目は長押し）
+A1の起動が完了するまで待つ（立ち上がるまで）
+L2+A を３回ほど押して，胴体の高さを下げる
+L2+B で脱力させる
 
+### 自作コントローラーを起動
+
+xboxコントローラーをPCに接続
+
+ターミナルを２つ開く
+
+１つ目のターミナル
+
+```
+python src/RL_server.py
+```
+
+２つ目のターミナル
+
+```
+ssh pi@169.254.187.189
+cd /home/OpenCampus2024/ryosei/unitree_legged_sdk/build
+./cpg
+```
+
+## Control
+
+<img src="./img/xboxController.svg" width="100%">
+
+Forward + Turn も可
 
 ## Memo
 ```

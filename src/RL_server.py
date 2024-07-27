@@ -459,7 +459,7 @@ def start_server():
                 delta_policy_active = True
                 
             elif joy.get_button(3) == 1:
-                delta_policy_active = False
+                delta_policy_active = True
                 
             # print(f"hat_input: {hat_input}")
 
