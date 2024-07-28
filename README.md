@@ -148,7 +148,7 @@ cd /home/OpenCampus2024/ryosei/unitree_legged_sdk/build
 
 ## Control
 
-<img src="./img/xboxController.svg" width="100%">
+<img src="./img/xboxController.svg" width="80%">
 
 Forward + Turn も可
 
