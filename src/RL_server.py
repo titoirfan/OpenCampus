@@ -342,8 +342,8 @@ def start_server():
     delta_policy_active = True
     command = np.array([0.0, 0.0, 0.0])
     h = 0.25
-    gc = 0.1
-    walk_gc = 0.1
+    gc = 0.12
+    walk_gc = 0.12
     stop_count = 0
     
     print_count = 0
