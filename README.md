@@ -1,5 +1,7 @@
 # OpenCampus 2024
 
+<img src="./img/OpenCampusDemo.gif" width="50%">
+
 セットアップが完了している場合は，[Start](#start)から．
 
 ## セットアップ
