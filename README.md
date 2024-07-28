@@ -1,5 +1,7 @@
 # OpenCampus 2024
 
+[GitHub Page](https://github.com/RSeto14/OpenCampus2024)
+
 <!-- markdownlint-disable-next-line MD033 -->
 <img src="./img/OpenCampusDemo.gif" width="50%" alt="OpenCampusDemo">
 
@@ -158,7 +160,7 @@ cd /home/OpenCampus2024/ryosei/unitree_legged_sdk/build
 ## Control
 
 <!-- markdownlint-disable-next-line MD033 -->
-<img src="./img/xboxController.svg" width="80%" alt="xboxController">
+<img src="./img/xboxController.png" width="80%" alt="xboxController">
 
 Forward + Turn も可
 
