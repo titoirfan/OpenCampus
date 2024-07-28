@@ -2,11 +2,7 @@
 
 <img src="./img/OpenCampusDemo.gif" width="50%">
 
-セットアップが完了している場合は，[Start](#start)から．
-
-## セットアップ
-
-### 必要なもの
+## 必要なもの
 - Unitree A1
 - PC(Windows,GPU)
 - 充電器
@@ -14,6 +10,12 @@
 - コントローラー (Unitree)
 - コントローラー (xbox)
 - 障害物
+
+セットアップが完了している場合は，[Start](#start)から．
+
+## セットアップ
+
+
 
 
 ### 仮想環境作成
