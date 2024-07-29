@@ -21,39 +21,39 @@ from SoftActorCritic.SAC import SAC
 train_log_Forward = rf"{script_dir}/TrainLog/SACTrain_240705_0/forward_00_05/240708_144207"
 networks_Forward = "episode_6200.pt"
 
-train_log_Backward = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrain_240705_0\Backward_03_08\240708_145445"
+train_log_Backward = rf"{script_dir}/TrainLog/SACTrain_240705_0/Backward_03_08/240708_145445"
 networks_Backward = "episode_5600.pt"
 
-train_log_Left = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrain_240705_0\Left_03_08\240705_204533"
+train_log_Left = rf"{script_dir}/TrainLog/SACTrain_240705_0/Left_03_08/240705_204533"
 networks_Left = "episode_5600.pt"
 
-train_log_Right = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrain_240705_0\Right_03_08\240705_204631"
+train_log_Right = rf"{script_dir}/TrainLog/SACTrain_240705_0/Right_03_08/240705_204631"
 networks_Right = "episode_5600.pt"
 
 
-train_log_TL = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrain_240705_0\TurnLeft_03_08\240705_203739"
+train_log_TL = rf"{script_dir}/TrainLog/SACTrain_240705_0/TurnLeft_03_08/240705_203739"
 networks_TL = "episode_6200.pt"
 
-train_log_TR = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrain_240705_0\TurnRight_03_08\240705_203910"
+train_log_TR = rf"{script_dir}/TrainLog/SACTrain_240705_0/TurnRight_03_08/240705_203910"
 networks_TR = "episode_5600.pt"
 
 
-train_log_TLF = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrain_240705_0\TurnLeftForward_03_08_00_05\240705_204039"
+train_log_TLF = rf"{script_dir}/TrainLog/SACTrain_240705_0/TurnLeftForward_03_08_00_05/240705_204039"
 networks_TLF = "episode_5600.pt"
 
-train_log_TRF = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrain_240705_0\TurnRightForward_03_08_00_05\240708_144959"
+train_log_TRF = rf"{script_dir}/TrainLog/SACTrain_240705_0/TurnRightForward_03_08_00_05/240708_144959"
 networks_TRF = "episode_5600.pt"
 
-train_log_Step = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrain_240705_0\Step_omega_10_45\240705_205004"
+train_log_Step = rf"{script_dir}/TrainLog/SACTrain_240705_0/Step_omega_10_45/240705_205004"
 networks_Step = "episode_5700.pt"
 
-# train_log_delta = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrainDualplus_240710_0\delta_size_10-10-05_dekoboko00-12\240711_015231"
+# train_log_delta = rf"{script_dir}/TrainLog/SACTrainDualplus_240710_0/delta_size_10-10-05_dekoboko00-12/240711_015231"
 # networks_delta = "episode_3000.pt"
 
-train_log_delta = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrainDualplus_240710_0\delta_size_10-10-05_dekoboko00-12\240715_014032"
+train_log_delta = rf"{script_dir}/TrainLog/SACTrainDualplus_240710_0/delta_size_10-10-05_dekoboko00-12/240715_014032"
 networks_delta = "episode_5300.pt"
 
-train_log_delta2 = r"C:\Users\hayas\workspace_A1Real\Log2\SACTrainDual_240711_0\delta_size_10-10-05_dekoboko00-12\240715_022240"
+train_log_delta2 = rf"{script_dir}/TrainLog/SACTrainDual_240711_0/delta_size_10-10-05_dekoboko00-12/240715_022240"
 networks_delta2 = "episode_5100.pt"
 
 # make log dir
