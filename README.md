@@ -111,7 +111,7 @@ mkdir /home/OpenCampus2024
 ２つ目のターミナル
 
 ``` cmd
-scp -r src/unitree_legged_sdk pi@169.254.187.189:/home/OpenCampus2024
+scp -r src/unitree_legged_sdk pi@169.254.187.189:/home/pi/OpenCampus2024
 ```
 
 １つ目のターミナル
