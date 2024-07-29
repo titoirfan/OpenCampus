@@ -143,8 +143,12 @@ GitBashで
 
 run.shを実行
 
+``` bash
+cd /c/Users/hayas/Desktop/OpenCampus2024
+```
+
 ``` cmd
-/c/Users/hayas/Desktop/OpenCampus2024/run.sh
+./run.sh
 ```
 
 パスワードは 123
