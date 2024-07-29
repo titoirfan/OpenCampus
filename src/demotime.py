@@ -10,7 +10,7 @@ def get_next_time(current_time, time_list):
     return None
 
 def update_display():
-    with open('src/demotime.csv', newline='') as csvfile:
+    with open('src/DemoTime.csv', newline='') as csvfile:
         reader = csv.reader(csvfile)
         time_list = [row[0] for row in reader]
     current_time = time.strftime("%H:%M:%S", time.localtime())
@@ -31,7 +31,7 @@ def update_display():
     root.after(10000, update_display)  # Update every 60 seconds
 
 # Read times from CSV
-with open('src/demotime.csv', newline='') as csvfile:
+with open('src/DemoTime.csv', newline='') as csvfile:
     reader = csv.reader(csvfile)
     time_list = [row[0] for row in reader]
 
