@@ -117,7 +117,7 @@ scp -r src/unitree_legged_sdk pi@169.254.187.189:/home/OpenCampus2024
 １つ目のターミナル
 
 ``` cmd
-cd /home/OpenCampus2024/unitree_legged_sdk
+cd /home/pi/OpenCampus2024/unitree_legged_sdk
 mkdir build
 cd build
 cmake ..
@@ -153,7 +153,7 @@ sshのパスワードは　123
 
 ``` cmd
 ssh pi@169.254.187.189
-cd /home/OpenCampus2024/ryosei/unitree_legged_sdk/build
+cd /home/pi/OpenCampus2024/ryosei/unitree_legged_sdk/build
 ./cpg
 ```
 
