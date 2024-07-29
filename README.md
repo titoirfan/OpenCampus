@@ -141,8 +141,10 @@ xboxコントローラーをPCに接続
 
 GitBashで
 
+run.shを実行
+
 ``` cmd
-./run.sh
+/c/Users/hayas/Desktop/OpenCampus2024/run.sh
 ```
 
 パスワードは 123
