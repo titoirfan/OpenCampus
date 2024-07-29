@@ -21,7 +21,7 @@
 
 ## セッティング
 
-
+<img src="./img/setting.jpg" width="50%" alt="setting">
 
 ## Start
 
