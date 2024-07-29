@@ -15,7 +15,7 @@
 - コントローラー (xbox)
 - 障害物
 
-セットアップが完了していない場合，うまくいかない場合は[詳細](./Opencampus2024.md)を参照
+セットアップが完了していない場合，うまくいかない場合は[詳細](./src/Opencampus2024.md)を参照
 
 ## セッティング
 
@@ -23,7 +23,10 @@
 
 ## Start
 
-LANケーブルでA1とPCを接続
+### LANケーブルでA1とPCを接続
+
+<!-- markdownlint-disable-next-line MD033 -->
+<img src="./img/LAN_port.svg" width="50%" alt="LAN_port">
 
 ### unitreeのコントローラーとA1を起動
 
@@ -46,8 +49,6 @@ cd /c/Users/hayas/Desktop/OpenCampus2024
 ```
 
 パスワードは 123
-
-
 
 ## Control
 
