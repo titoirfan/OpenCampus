@@ -5,7 +5,7 @@
 <!-- markdownlint-disable-next-line MD033 -->
 <img src="./img/OpenCampusDemo.gif" width="50%" alt="OpenCampusDemo">
 
-## 必要なもの
+## Requirement
 
 - Unitree A1
 - PC(Windows,GPU)
@@ -19,7 +19,7 @@
 
 セットアップが完了していない場合，うまくいかない場合は[詳細](./src/Opencampus2024.md)を参照
 
-## セッティング
+## Setting
 
 <img src="./img/setting.jpg" width="50%" alt="setting">
 
