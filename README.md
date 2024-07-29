@@ -153,7 +153,7 @@ sshのパスワードは　123
 
 ``` cmd
 ssh pi@169.254.187.189
-cd /home/pi/OpenCampus2024/ryosei/unitree_legged_sdk/build
+cd /home/pi/OpenCampus2024/unitree_legged_sdk/build
 ./cpg
 ```
 
