@@ -47,6 +47,9 @@ run.shを実行
 
 ``` bash
 cd /c/Users/hayas/Desktop/OpenCampus2024
+```
+
+``` bash
 ./run.sh
 ```
 
