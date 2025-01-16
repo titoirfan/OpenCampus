@@ -147,17 +147,10 @@ void Custom::TCPClient() {
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(12345);
 
-    // 有線
-    if (inet_pton(AF_INET, "169.254.250.232", &serv_addr.sin_addr) <= 0) {
+    if (inet_pton(AF_INET, "169.254.187.12", &serv_addr.sin_addr) <= 0) {
         std::cerr << "Invalid address/ Address not supported" << std::endl;
         return;
     }
-
-    // 無線
-    // if (inet_pton(AF_INET, "192.168.12.136", &serv_addr.sin_addr) <= 0) {
-    //     std::cerr << "Invalid address/ Address not supported" << std::endl;
-    //     return;
-    // }
 
     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
         std::cerr << "Connection Failed" << std::endl;
@@ -480,69 +473,70 @@ void Custom::RobotControl()
             
         }
         
-    if (mode == 1.0){
+        if (mode == 1.0){
 
-        if( control_count >= 0 && control_count < 10){
+            if( control_count >= 0 && control_count < 10){
+                
+                FR_pos_init = ForwardKinematics(FR_joint_q,0.0838);
+                FL_pos_init = ForwardKinematics(FL_joint_q,-0.0838);
+                RR_pos_init = ForwardKinematics(RR_joint_q,0.0838);
+                RL_pos_init = ForwardKinematics(RL_joint_q,-0.0838);
+                Kp[0] = 0.0; Kp[1] = 0.0; Kp[2] = 0.0; 
+                Kd[0] = 0.0; Kd[1] = 0.0; Kd[2] = 0.0;
+                
+            }
+
+            if( control_count >= 10 && control_count < 10000){
+                rate_count++;
+                double rate = rate_count/9000.0;  // needs count to 200
+
+                Kp[0] = 100.0; Kp[1] = 100.0; Kp[2] = 100.0; 
+                Kd[0] = 2.0; Kd[1] = 2.0; Kd[2] = 2.0;
+
+                std::array<double, 3> _FR_pos_des = Trajectory(-0.0838, 0);
+                std::array<double, 3> _FL_pos_des = Trajectory(0.0838, 1);
+                std::array<double, 3> _RR_pos_des = Trajectory(-0.0838, 2);
+                std::array<double, 3> _RL_pos_des = Trajectory(0.0838, 3);
+
+                FR_pos_des = FootPosLinearInterpolation(FR_pos_init, _FR_pos_des, rate);
+                FL_pos_des = FootPosLinearInterpolation(FL_pos_init, _FL_pos_des, rate);
+                RR_pos_des = FootPosLinearInterpolation(RR_pos_init, _RR_pos_des, rate);
+                RL_pos_des = FootPosLinearInterpolation(RL_pos_init, _RL_pos_des, rate);
+            }
+
+            if( control_count >= 10000){
+
+                FR_pos_des = Trajectory(-0.0838, 0);
+                FL_pos_des = Trajectory(0.0838, 1);
+                RR_pos_des = Trajectory(-0.0838, 2);
+                RL_pos_des = Trajectory(0.0838, 3);
+
+                FR_pos_des[0] += delta[0];
+                FR_pos_des[1] += delta[1];
+                FR_pos_des[2] += delta[2];
+
+                FL_pos_des[0] += delta[3];
+                FL_pos_des[1] += delta[4];
+                FL_pos_des[2] += delta[5];
+
+                RR_pos_des[0] += delta[6];
+                RR_pos_des[1] += delta[7];
+                RR_pos_des[2] += delta[8];
+
+                RL_pos_des[0] += delta[9];
+                RL_pos_des[1] += delta[10];
+                RL_pos_des[2] += delta[11];
+
+
+                Kp[0] = 100.0; Kp[1] = 100.0; Kp[2] = 100.0;  
+                Kd[0] = 2.0; Kd[1] = 2.0; Kd[2] = 2.0;
+
+                rate_count = 0;
+            }
             
-            FR_pos_init = ForwardKinematics(FR_joint_q,0.0838);
-            FL_pos_init = ForwardKinematics(FL_joint_q,-0.0838);
-            RR_pos_init = ForwardKinematics(RR_joint_q,0.0838);
-            RL_pos_init = ForwardKinematics(RL_joint_q,-0.0838);
-            Kp[0] = 0.0; Kp[1] = 0.0; Kp[2] = 0.0; 
-            Kd[0] = 0.0; Kd[1] = 0.0; Kd[2] = 0.0;
-            
+            control_count++;
+            stop_count = 0;
         }
-
-        if( control_count >= 10 && control_count < 10000){
-            rate_count++;
-            double rate = rate_count/9000.0;  // needs count to 200
-
-            Kp[0] = 100.0; Kp[1] = 100.0; Kp[2] = 100.0; 
-            Kd[0] = 2.0; Kd[1] = 2.0; Kd[2] = 2.0;
-
-            std::array<double, 3> _FR_pos_des = Trajectory(-0.0838, 0);
-            std::array<double, 3> _FL_pos_des = Trajectory(0.0838, 1);
-            std::array<double, 3> _RR_pos_des = Trajectory(-0.0838, 2);
-            std::array<double, 3> _RL_pos_des = Trajectory(0.0838, 3);
-
-            FR_pos_des = FootPosLinearInterpolation(FR_pos_init, _FR_pos_des, rate);
-            FL_pos_des = FootPosLinearInterpolation(FL_pos_init, _FL_pos_des, rate);
-            RR_pos_des = FootPosLinearInterpolation(RR_pos_init, _RR_pos_des, rate);
-            RL_pos_des = FootPosLinearInterpolation(RL_pos_init, _RL_pos_des, rate);
-        }
-
-        if( control_count >= 10000){
-
-            FR_pos_des = Trajectory(-0.0838, 0);
-            FL_pos_des = Trajectory(0.0838, 1);
-            RR_pos_des = Trajectory(-0.0838, 2);
-            RL_pos_des = Trajectory(0.0838, 3);
-
-            FR_pos_des[0] += delta[0];
-            FR_pos_des[1] += delta[1];
-            FR_pos_des[2] += delta[2];
-
-            FL_pos_des[0] += delta[3];
-            FL_pos_des[1] += delta[4];
-            FL_pos_des[2] += delta[5];
-
-            RR_pos_des[0] += delta[6];
-            RR_pos_des[1] += delta[7];
-            RR_pos_des[2] += delta[8];
-
-            RL_pos_des[0] += delta[9];
-            RL_pos_des[1] += delta[10];
-            RL_pos_des[2] += delta[11];
-
-
-            Kp[0] = 100.0; Kp[1] = 100.0; Kp[2] = 100.0;  
-            Kd[0] = 2.0; Kd[1] = 2.0; Kd[2] = 2.0;
-
-            rate_count = 0;
-        }
-        control_count++;
-        stop_count = 0;
-    }
 
         
 

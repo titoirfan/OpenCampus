@@ -11,12 +11,12 @@ import pytz
 import datetime
 import csv
 
+from SoftActorCritic.SAC import SAC
+
 script_dir = os.path.dirname(__file__)    
 parent_dir = os.path.dirname(script_dir)  
 sys.path.append(parent_dir)
 
-
-from SoftActorCritic.SAC import SAC
 
 train_log_Forward = rf"{script_dir}/TrainLog/SACTrain_240705_0/forward_00_05/240708_144207"
 networks_Forward = "episode_6200.pt"
@@ -30,13 +30,11 @@ networks_Left = "episode_5600.pt"
 train_log_Right = rf"{script_dir}/TrainLog/SACTrain_240705_0/Right_03_08/240705_204631"
 networks_Right = "episode_5600.pt"
 
-
 train_log_TL = rf"{script_dir}/TrainLog/SACTrain_240705_0/TurnLeft_03_08/240705_203739"
 networks_TL = "episode_6200.pt"
 
 train_log_TR = rf"{script_dir}/TrainLog/SACTrain_240705_0/TurnRight_03_08/240705_203910"
 networks_TR = "episode_5600.pt"
-
 
 train_log_TLF = rf"{script_dir}/TrainLog/SACTrain_240705_0/TurnLeftForward_03_08_00_05/240705_204039"
 networks_TLF = "episode_5600.pt"
@@ -47,20 +45,24 @@ networks_TRF = "episode_5600.pt"
 train_log_Step = rf"{script_dir}/TrainLog/SACTrain_240705_0/Step_omega_10_45/240705_205004"
 networks_Step = "episode_5700.pt"
 
-# train_log_delta = rf"{script_dir}/TrainLog/SACTrainDualplus_240710_0/delta_size_10-10-05_dekoboko00-12/240711_015231"
-# networks_delta = "episode_3000.pt"
-
 train_log_delta = rf"{script_dir}/TrainLog/SACTrainDualplus_240710_0/delta_size_10-10-05_dekoboko00-12/240715_014032"
 networks_delta = "episode_5300.pt"
 
 train_log_delta2 = rf"{script_dir}/TrainLog/SACTrainDual_240711_0/delta_size_10-10-05_dekoboko00-12/240715_022240"
 networks_delta2 = "episode_5100.pt"
 
+
 # make log dir
 timezone = pytz.timezone('Asia/Tokyo')
 start_datetime = datetime.datetime.now(timezone)    
 start_formatted = start_datetime.strftime("%y%m%d_%H%M%S")
 
+
+class Box:
+    def __init__(self, dim, low=None, high=None):
+        self.low = low
+        self.high = high
+        self.shape = dim
 
 
 def clear_terminal():
@@ -71,9 +73,7 @@ def start_server():
     
     ######### 通信 #########################################
     
-    # host = "169.254.122.147" # 有線
-    host = "169.254.250.232" # 有線
-    # host = "192.168.12.136" # 無線
+    host = "169.254.187.12"
     port = 12345
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -85,6 +85,7 @@ def start_server():
 
 
     ######### コントローラー #################################
+    
     pygame.init()
     pygame.joystick.init()
     
@@ -99,9 +100,9 @@ def start_server():
     ########################################################
     
     ######### エージェント ###################################
+    
     observation_space = Box(63)
     action_space = Box(12)
-    
     
     # Agent Forward 0.0 ~ 0.5 [m/s]
     config_Forward = os.path.join(train_log_Forward, "config.yaml")
@@ -140,7 +141,6 @@ def start_server():
     omega_low_Backward = 2* np.pi * np.array(cfg_Backward["env"]["CPG"]["omegaLow"])
     psi_high_Backward = 2* np.pi * np.array(cfg_Backward["env"]["CPG"]["psiHigh"])
     psi_low_Backward = 2* np.pi * np.array(cfg_Backward["env"]["CPG"]["psiLow"])
-
 
     # Agent Left 0.3 ~ 0.8 [m/s]
     config_Left = os.path.join(train_log_Left, "config.yaml")
@@ -299,13 +299,11 @@ def start_server():
                                         delta_x_max, delta_y_max, delta_z_max,
                                         delta_x_max, delta_y_max, delta_z_max]))
     
-    
     agent_delta = SAC(observation_space.shape, action_space_delta, cfg_delta)
     checkpoint_delta = os.path.join(train_log_delta, "Networks", networks_delta)
     agent_delta.load_checkpoint(ckpt_path=checkpoint_delta, evaluate=True)
-    
-    
-    # delta2
+
+    # Agent Delta2 - specific for purely forward motion commands
     config_delta2 = os.path.join(train_log_delta2, "config.yaml")
     print(f"Config path: {config_delta2}")
     with open(config_delta2, 'r') as yml:
@@ -334,7 +332,6 @@ def start_server():
     agent_delta2.load_checkpoint(ckpt_path=checkpoint_delta2, evaluate=True)
     
     #########################################################################################
-
     
     mode = 0.0
     step = 0
@@ -377,62 +374,35 @@ def start_server():
                 if event.axis == 5 and event.value > 0.9:  # ZRボタンが押された
                     mode = 0.0
                     print("ZR button is pressed")
-                if event.axis == 4 and event.value > 0.9:  # ZLボタンが押された
+                if event.axis == 2 and event.value > 0.9:  # ZLボタンが押された
                     mode = 1.0
                     print("ZL button is pressed")
-                
-        #         if event.axis == 1 and event.value < -0.001:
-        #             command[0] = - 0.3 * event.value + 0.5
-        #             command[1] = 0.0
-        #             command[2] = 0.0
-        #             print(f"x_vel: {command}")
-                    
-        #         elif event.axis == 2 and abs(event.value) > 0.001:
-        #             command[0] = 0.0
-        #             command[1] = 0.0
-        #             command[2] = - 1.0 * event.value
-        #             print(f"w_vel: {command}")
-                
-        #         else:
-        #             command[0] = 0.0
-        #             command[1] = 0.0
-        #             command[2] = 0.0
-        
         
             # Left joy stick
             if joy.get_axis(1) < -0.3:
-                command[0] = - 0.5 * (joy.get_axis(1) +0.3)/0.7
+                command[0] = -0.5 * (joy.get_axis(1) + 0.3) / 0.7
                 command[1] = 0.0
             elif joy.get_axis(1) > 0.3:
-                command[0] = - 0.2 * (joy.get_axis(1)-0.3)/0.7 -0.3
+                command[0] = -0.2 * (joy.get_axis(1) - 0.3) / 0.7 - 0.3
                 command[1] = 0.0
             elif joy.get_axis(0) < -0.3:
-                command[1] = -0.2 * (joy.get_axis(0)+0.3)/0.7 + 0.3
+                command[1] = -0.2 * (joy.get_axis(0) + 0.3) / 0.7 + 0.3
             elif joy.get_axis(0) > 0.3:
-                command[1] = -0.2 * (joy.get_axis(0)-0.3)/0.7 - 0.3
+                command[1] = -0.2 * (joy.get_axis(0) - 0.3) / 0.7 - 0.3
             else:
                 command[0] = 0.0
                 command[1] = 0.0
-                
-            # joy0 = joy.get_axis(0)
-            # joy1 = joy.get_axis(1)
-            # joy2 = joy.get_axis(2)
-                
 
             # Right joy stick
-            if joy.get_axis(2) < - 0.09 and abs(joy.get_axis(0)) <= 0.09:
+            if joy.get_axis(3) < -0.09 and abs(joy.get_axis(0)) <= 0.09:
                 command[1] = 0.0
-                command[2] = - 0.5 * joy.get_axis(2) + 0.3
-                
-            elif joy.get_axis(2) > 0.09 and abs(joy.get_axis(0)) <= 0.09:
+                command[2] = -0.5 * joy.get_axis(3) + 0.3
+            elif joy.get_axis(3) > 0.09 and abs(joy.get_axis(0)) <= 0.09:
                 command[1] = 0.0
-                command[2] = - 0.5 * joy.get_axis(2) - 0.3
+                command[2] = -0.5 * joy.get_axis(3) - 0.3
             else:
                 command[2] = 0.0
-                
-            
-                
-                
+
             # 方向ボタン (ハットスイッチ) の処理を追加
             hat_input = joy.get_hat(0)
             if hat_input[0] == -1:  # 左
@@ -448,24 +418,18 @@ def start_server():
             elif hat_input[1] == -1:  # 下
                 h -= 0.01
                 h = np.clip(h, 0.19, 0.30)
-                
-            if joy.get_button(4) == 1:
-                policy_active = True
-                
-            elif joy.get_button(5) == 1:
-                policy_active = False
-                
-            if joy.get_button(2) == 1:
-                delta_policy_active = True
-                
-            elif joy.get_button(3) == 1:
-                delta_policy_active = False
-                
-            # print(f"hat_input: {hat_input}")
 
-        
-        
-        
+            if joy.get_button(4) == 1:  # LB
+                policy_active = True
+            elif joy.get_button(5) == 1:  # RB
+                policy_active = False
+            
+            if joy.get_button(2) == 1:  # X
+                delta_policy_active = True
+            elif joy.get_button(3) == 1:  # Y
+                delta_policy_active = False
+
+
         # NNの処理
         if policy_active:
             observation = np.concatenate([observation, command])
@@ -473,7 +437,7 @@ def start_server():
             if delta_policy_active:
                 action_deltas = agent_delta.select_action(observation,evaluate=True)
                 delta = ((action_space_delta.high - action_space_delta.low)/2) * action_deltas + ((action_space_delta.low + action_space_delta.high)/2)
-                
+
             else:
                 delta = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
             
@@ -491,7 +455,6 @@ def start_server():
                     _mu = ((mu_high_TRF - mu_low_TRF) / 2) * action[0:4] + ((mu_high_TRF + mu_low_TRF) / 2)
                     _omega = ((omega_high_TRF - omega_low_TRF) / 2) * action[4:8] + ((omega_high_TRF + omega_low_TRF) / 2)
                     _psi = ((psi_high_TRF - psi_low_TRF) / 2) * action[8:12] + ((psi_high_TRF + psi_low_TRF) / 2)
-                    
 
                 else:
                     action = agent_Forward.select_action(observation,evaluate=True)
@@ -502,11 +465,9 @@ def start_server():
                     if delta_policy_active:
                         action_deltas = agent_delta2.select_action(observation,evaluate=True)
                         delta = ((action_space_delta2.high - action_space_delta2.low)/2) * action_deltas + ((action_space_delta2.low + action_space_delta2.high)/2)
-                
                     else:
                         delta = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
                 
-                    
             elif command[0] < -0.3 and command[1] == 0.0:
                 action = agent_Backward.select_action(observation,evaluate=True)
                 _mu = ((mu_high_Backward - mu_low_Backward) / 2) * action[0:4] + ((mu_high_Backward + mu_low_Backward) / 2)
@@ -536,15 +497,12 @@ def start_server():
                 _mu = ((mu_high_TR - mu_low_TR) / 2) * action[0:4] + ((mu_high_TR + mu_low_TR) / 2)
                 _omega = ((omega_high_TR - omega_low_TR) / 2) * action[4:8] + ((omega_high_TR + omega_low_TR) / 2)
                 _psi = ((psi_high_TR - psi_low_TR) / 2) * action[8:12] + ((psi_high_TR + psi_low_TR) / 2)
-
                 
             else:
                 action = agent_Step.select_action(observation,evaluate=True)
                 _mu = ((mu_high_Step - mu_low_Step) / 2) * action[0:4] + ((mu_high_Step + mu_low_Step) / 2)
                 _omega = ((omega_high_Step - omega_low_Step) / 2) * action[4:8] + ((omega_high_Step + omega_low_Step) / 2)
                 _psi = ((psi_high_Step - psi_low_Step) / 2) * action[8:12] + ((psi_high_Step + psi_low_Step) / 2)
-                
-            
             
             stop_count = 0
             gc = walk_gc
@@ -562,8 +520,7 @@ def start_server():
                 _mu = ((mu_high_Step - mu_low_Step) / 2) * action[0:4] + ((mu_high_Step + mu_low_Step) / 2)
                 _omega = ((omega_high_Step - omega_low_Step) / 2) * action[4:8] + ((omega_high_Step + omega_low_Step) / 2)
                 _psi = ((psi_high_Step - psi_low_Step) / 2) * action[8:12] + ((psi_high_Step + psi_low_Step) / 2)
-                
-                
+
             else:
                 _mu = np.array([1.0, 1.0, 1.0, 1.0])
                 _omega = np.array([0.0, 0.0, 0.0, 0.0])
@@ -578,7 +535,7 @@ def start_server():
                     _omega[2] = np.pi
                 if observation[43] > threshold:
                     _omega[3] = np.pi
-                    
+
                 if observation[44] > threshold:
                     _psi[0] = -np.pi/2
                 elif observation[44] < -threshold:
@@ -600,9 +557,6 @@ def start_server():
             
             delta = np.zeros(12)
             action_deltas = np.zeros(12)
-            
-        
-        # print(f"mu: {_mu}, omega: {_omega}, psi: {_psi}")
         
         if array[0] > 10000:
             mu =  _mu
@@ -612,9 +566,6 @@ def start_server():
             omega = np.array([0.0, 0.0, 0.0, 0.0])
             mu = np.array([1.2, 1.2, 1.2, 1.2])
             psi = np.array([0.0, 0.0, 0.0, 0.0])
-            
-        
-        
         
         if print_count % 50 == 0:
             clear_terminal()
@@ -622,22 +573,16 @@ def start_server():
             print(f"Delta Policy:{delta_policy_active}")
             print(f"mode: {mode}, command(vx,vy,wz): {command[0], command[1], command[2]}, h: {h}, walk_gc: {walk_gc}, policy active: {policy_active}")
             print(f"delta: {delta[0], delta[1], delta[2], delta[3], delta[4], delta[5], delta[6], delta[7], delta[8], delta[9], delta[10], delta[11]}, gc: {gc}")
-        print_count += 1
         
+        print_count += 1
         
         response = struct.pack('d' * 27, *(mu.tolist() + omega.tolist() + psi.tolist() + delta.tolist() + [mode, h, gc] ))
         
         step += 1
-       
         
         client_socket.send(response)
         client_socket.close()
 
-class Box:
-    def __init__(self, dim, low=None, high=None):
-        self.low = low
-        self.high = high
-        self.shape = dim
 
 if __name__ == "__main__":
     start_server()
